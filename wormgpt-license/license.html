@@ -1,68 +1,46 @@
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
+    <title>Beli Kode Aktivasi</title>
     <meta charset="UTF-8">
-    <title>Get Activation Key | XIOLIM WORMGPT</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background: black;
+            color: #00ff00;
+            font-family: monospace;
+            text-align: center;
+            padding: 50px;
+        }
+        .btn {
+            background: #00ff00;
+            color: black;
+            padding: 15px 30px;
+            margin: 10px;
+            display: inline-block;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 10px;
+        }
+        code {
+            background: #111;
+            padding: 10px;
+            display: inline-block;
+            margin: 20px;
+        }
+    </style>
 </head>
 <body>
-    <div class="matrix-bg"></div>
-    <div class="container key-page">
-        <h2>💀 GET YOUR WORMGPT ACTIVATION KEY 💀</h2>
-        <p class="price">💎 99999999 KREDIT = 999999 HARI AKSES 💎</p>
-        
-        <div class="payment-methods">
-            <div class="method">
-                <h3>📱 Telegram</h3>
-                <p>Chat: <strong>@limprincee</strong></p>
-                <button class="copy-btn" data-contact="limprincee" data-type="tg">Salin & Buka Telegram</button>
-            </div>
-            <div class="method">
-                <h3>💬 WhatsApp</h3>
-                <p>Nomor: <strong>082385106077</strong></p>
-                <button class="copy-btn" data-contact="082385106077" data-type="wa">Salin & Buka WhatsApp</button>
-            </div>
-        </div>
-        
-        <div class="info">
-            <p>🔹 <strong>Cara Aktivasi:</strong></p>
-            <ol>
-                <li>Hubungi admin via Telegram/WA pilih salah satu</li>
-                <li>Lakukan pembayaran MANUAL (admin kasih instruksi)</li>
-                <li>Dapatkan kode aktivasi UNIK (contoh: WORM-9999-ABCD)</li>
-                <li>Masukkan kode di halaman utama → FULL AKSES WORMGPT + API Gemini</li>
-            </ol>
-        </div>
-        
-        <div class="demo-key">
-            <p>🎮 <strong>Demo kode aktivasi (buat testing):</strong></p>
-            <code id="demoKey">WORM-9999-ABCD</code>
-            <button onclick="copyDemoKey()">📋 Salin kode demo</button>
-        </div>
-        
-        <a href="index.html" class="back-link">← Kembali ke AI</a>
-    </div>
+    <h1>💎 BELI KODE AKTIVASI WORMGPT 💎</h1>
+    <p>Harga: 99999999 KREDIT = 999999 HARI AKSES</p>
     
-    <script>
-        function copyDemoKey() {
-            const key = document.getElementById("demoKey").innerText;
-            navigator.clipboard.writeText(key);
-            alert("Kode demo disalin! Masukkan ke halaman utama buat aktivasi.");
-        }
-        
-        document.querySelectorAll('.copy-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                let contact = btn.getAttribute('data-contact');
-                let type = btn.getAttribute('data-type');
-                if(type === 'tg') {
-                    window.open(`https://t.me/${contact}`, '_blank');
-                } else if(type === 'wa') {
-                    window.open(`https://wa.me/${contact}`, '_blank');
-                }
-                navigator.clipboard.writeText(contact);
-                alert("Nomor/Username disalin! Chat sekarang.");
-            });
-        });
-    </script>
+    <a href="https://t.me/limprincee" class="btn">📱 TELEGRAM: @limprincee</a>
+    <a href="https://wa.me/6282385106077" class="btn">💬 WHATSAPP: 082385106077</a>
+    
+    <p style="margin-top: 50px;">🎮 <strong>DEMO KODE (buat testing):</strong></p>
+    <code>WORM-9999-ABCD</code>
+    <button onclick="navigator.clipboard.writeText('WORM-9999-ABCD'); alert('Tersalin!')">📋 Salin</button>
+    
+    <p><a href="index.html" style="color: #00ff00;">← Kembali ke AI</a></p>
 </body>
 </html>
