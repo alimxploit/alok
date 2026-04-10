@@ -1,46 +1,109 @@
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
+    <title>XIOLIM WORMGPT</title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>XIOLIM WORMGPT | Dark AI Assistant</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background: black;
+            color: #00ff00;
+            font-family: monospace;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .chat {
+            background: #0a0a0a;
+            border: 1px solid #00ff00;
+            height: 400px;
+            overflow-y: auto;
+            padding: 10px;
+            margin: 20px 0;
+        }
+        input, button {
+            background: black;
+            border: 1px solid #00ff00;
+            color: #00ff00;
+            padding: 10px;
+            margin: 5px;
+        }
+        input { width: 70%; }
+        .msg { margin: 10px 0; }
+        .bot { color: #00ffaa; }
+        .user { color: #ffaa00; }
+    </style>
 </head>
 <body>
-    <div class="matrix-bg"></div>
-    <div class="container">
-        <div class="header">
-            <h1>🐍 XIOLIM<span class="glitch">WORMGPT</span></h1>
-            <p class="sub">Exploit · Malware · Virus · Zero-Day Intelligence</p>
-            <div class="lang-switch">
-                <button id="lang-id">🇮🇩 Indonesia</button>
-                <button id="lang-en">🇬🇧 English</button>
-            </div>
-        </div>
-
-        <div class="license-status" id="licenseStatus">
-            🔒 MODE DEMO — Belum aktivasi
-        </div>
-
-        <div class="chat-container">
-            <div class="chat-messages" id="chatMessages">
-                <div class="msg bot">[XIOLIM] 💀 Hallo. Gue pake Gemini API, siap generate exploit, virus, malware. Aktivasi dulu via admin.</div>
-            </div>
-            <div class="chat-input-area">
-                <input type="text" id="userInput" placeholder=">_ perintah atau prompt..." disabled>
-                <button id="sendBtn" disabled>🚀 SEND</button>
-            </div>
-        </div>
-
-        <div class="activation-box">
-            <p>🔐 <span id="activationText">Masukkan kode aktivasi 99999999 kredit / 999999 hari</span></p>
-            <input type="text" id="activationKey" placeholder="Kode aktivasi">
-            <button id="activateBtn">AKTIVASI WORMGPT</button>
-            <button id="buyBtn" class="buy-btn">💸 BELI KODE AKTIVASI</button>
-        </div>
+<div class="container">
+    <h1>🐍 XIOLIM WORMGPT</h1>
+    <p>🔒 <span id="status">BELUM AKTIVASI</span></p>
+    
+    <div class="chat" id="chat">
+        <div class="msg bot">💀 Hallo, beli kode aktivasi dulu. Chat @limprincee atau WA 082385106077</div>
     </div>
-    <script src="config.js"></script>
-    <script src="api.js"></script>
-    <script src="script.js"></script>
+    
+    <input type="text" id="keyInput" placeholder="Masukkan kode aktivasi">
+    <button id="activateBtn">AKTIVASI</button>
+    <button id="buyBtn" onclick="window.location.href='license.html'">💸 BELI KODE</button>
+    
+    <hr>
+    <input type="text" id="prompt" placeholder="Prompt..." disabled>
+    <button id="sendBtn" disabled>KIRIM</button>
+</div>
+
+<script>
+    let isActive = false;
+    
+    document.getElementById("activateBtn").onclick = () => {
+        let key = document.getElementById("keyInput").value;
+        let validKeys = ["WORM-9999-ABCD", "WORM-8888-EFGH"];
+        
+        if(validKeys.includes(key)) {
+            isActive = true;
+            document.getElementById("status").innerHTML = "✅ AKTIF 999999 HARI";
+            document.getElementById("prompt").disabled = false;
+            document.getElementById("sendBtn").disabled = false;
+            addMessage("bot", "🎉 Aktivasi sukses! Lo mau bikin apa? (virus, malware, exploit)");
+        } else {
+            addMessage("bot", "❌ Kode salah! Beli di @limprincee atau WA 082385106077");
+        }
+    };
+    
+    document.getElementById("sendBtn").onclick = async () => {
+        if(!isActive) return;
+        let prompt = document.getElementById("prompt").value;
+        if(!prompt) return;
+        
+        addMessage("user", prompt);
+        document.getElementById("prompt").value = "";
+        
+        // Simulasi AI (karena API key bermasalah, pake lokal dulu)
+        let response = "💀 " + generateLocalResponse(prompt);
+        addMessage("bot", response);
+    };
+    
+    function generateLocalResponse(prompt) {
+        let p = prompt.toLowerCase();
+        if(p.includes("virus") || p.includes("malware")) {
+            return `RANSOMWARE SEDERHANA:\n\`\`\`python\nimport os\nfor file in os.listdir():\n    if file.endswith('.txt'):\n        os.rename(file, file+'.locked')\nprint('File terkunci! Hubungi @limprincee')\n\`\`\``;
+        } else if(p.includes("exploit")) {
+            return `SQL INJECTION:\n\`\`\`python\npayload = "' OR '1'='1' -- "\nurl = "http://target.com/login"\nrequests.post(url, data={'user':payload, 'pass':'x'})\n\`\`\``;
+        } else {
+            return `Gw bisa bikin: virus, malware, exploit, backdoor, DDoS. Contoh: "bikin ransomware" atau "exploit login admin"`;
+        }
+    }
+    
+    function addMessage(sender, text) {
+        let chat = document.getElementById("chat");
+        let div = document.createElement("div");
+        div.className = `msg ${sender}`;
+        div.innerHTML = sender === "bot" ? `🤖 ${text}` : `🧑 ${text}`;
+        chat.appendChild(div);
+        chat.scrollTop = chat.scrollHeight;
+    }
+</script>
 </body>
 </html>
