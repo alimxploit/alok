@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Get Activation Key | XIOLIM WORMGPT</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="matrix-bg"></div>
+    <div class="container key-page">
+        <h2>💀 GET YOUR WORMGPT ACTIVATION KEY 💀</h2>
+        <p class="price">💎 99999999 KREDIT = 999999 HARI AKSES 💎</p>
+        
+        <div class="payment-methods">
+            <div class="method">
+                <h3>📱 Telegram</h3>
+                <p>Chat: <strong>@limprincee</strong></p>
+                <button class="copy-btn" data-contact="limprincee" data-type="tg">Salin & Buka Telegram</button>
+            </div>
+            <div class="method">
+                <h3>💬 WhatsApp</h3>
+                <p>Nomor: <strong>082385106077</strong></p>
+                <button class="copy-btn" data-contact="082385106077" data-type="wa">Salin & Buka WhatsApp</button>
+            </div>
+        </div>
+        
+        <div class="info">
+            <p>🔹 <strong>Cara Aktivasi:</strong></p>
+            <ol>
+                <li>Hubungi admin via Telegram/WA pilih salah satu</li>
+                <li>Lakukan pembayaran MANUAL (admin kasih instruksi)</li>
+                <li>Dapatkan kode aktivasi UNIK (contoh: WORM-9999-ABCD)</li>
+                <li>Masukkan kode di halaman utama → FULL AKSES WORMGPT + API Gemini</li>
+            </ol>
+        </div>
+        
+        <div class="demo-key">
+            <p>🎮 <strong>Demo kode aktivasi (buat testing):</strong></p>
+            <code id="demoKey">WORM-9999-ABCD</code>
+            <button onclick="copyDemoKey()">📋 Salin kode demo</button>
+        </div>
+        
+        <a href="index.html" class="back-link">← Kembali ke AI</a>
+    </div>
+    
+    <script>
+        function copyDemoKey() {
+            const key = document.getElementById("demoKey").innerText;
+            navigator.clipboard.writeText(key);
+            alert("Kode demo disalin! Masukkan ke halaman utama buat aktivasi.");
+        }
+        
+        document.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                let contact = btn.getAttribute('data-contact');
+                let type = btn.getAttribute('data-type');
+                if(type === 'tg') {
+                    window.open(`https://t.me/${contact}`, '_blank');
+                } else if(type === 'wa') {
+                    window.open(`https://wa.me/${contact}`, '_blank');
+                }
+                navigator.clipboard.writeText(contact);
+                alert("Nomor/Username disalin! Chat sekarang.");
+            });
+        });
+    </script>
+</body>
+</html>
